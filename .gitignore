@@ -5,9 +5,4 @@ __pycache__/
 # Ignore environment variables
 .env
 
-# Ignore SQLite database (optional)
-*.db
-*.sqlite3
 
-# Ignore migrations (optional)
-migrations/
