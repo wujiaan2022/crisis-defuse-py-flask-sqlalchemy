@@ -27,7 +27,16 @@ class User(db.Model):
         lazy='dynamic'
     )
 
-# Scripture Model
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "email": self.email,
+            "blogs": [blog.to_dict() for blog in self.blogs],  # Include related blogs
+            "scriptures": [{"id": s.id, "name": s.name} for s in self.scriptures]  # Simplified scripture data
+        }
+
+
 class Scripture(db.Model):
     __tablename__ = 'scriptures'  # Specifies the table name in the database
     id = db.Column(db.Integer, primary_key=True)  # Unique identifier for each scripture
@@ -37,8 +46,17 @@ class Scripture(db.Model):
     audio = db.Column(db.String(200))  # URL or path to a related audio file
     text = db.Column(db.Text)  # Full text of the scripture
 
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "info": self.info,
+            "video": self.video,
+            "audio": self.audio,
+            "text": self.text
+        }
 
-# Blog Model
+
 class Blog(db.Model):
     __tablename__ = 'blogs'  # Specifies the table name in the database
     id = db.Column(db.Integer, primary_key=True)  # Unique identifier for each blog post
@@ -49,8 +67,17 @@ class Blog(db.Model):
 
     # One-to-Many relationship: A blog can have multiple comments
     comments = db.relationship('Comment', backref='blog', lazy=True)
-    
-    
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "title": self.title,
+            "content": self.content,
+            "likes": self.likes,
+            "comments": [comment.to_dict() for comment in self.comments]  # Include related comments
+        }
+
+
 class Comment(db.Model):
     __tablename__ = 'comments'  # Specifies the table name in the database
     id = db.Column(db.Integer, primary_key=True)  # Unique identifier for each comment
@@ -58,4 +85,10 @@ class Comment(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)  # Foreign key linking to the comment author's id
     blog_id = db.Column(db.Integer, db.ForeignKey('blogs.id'), nullable=False)  # Foreign key linking to the blog post's id
 
-
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "content": self.content,
+            "user_id": self.user_id,
+            "blog_id": self.blog_id
+        }
