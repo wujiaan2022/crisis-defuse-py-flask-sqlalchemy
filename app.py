@@ -61,18 +61,24 @@ def create_app():
         return jsonify([scripture.to_dict() for scripture in scriptures]), 200
 
     @app.route('/scriptures', methods=['POST'])
-    def add_scripture():
-        data = request.json
-        new_scripture = Scripture(
-            name=data['name'],
-            info=data.get('info'),
-            video=data.get('video'),
-            audio=data.get('audio'),
-            text=data.get('text')
-        )
-        db.session.add(new_scripture)
+    def add_scriptures():
+        data = request.json  # Expecting a list of scripture objects
+        scriptures = []
+
+        for item in data:
+            new_scripture = Scripture(
+                name=item['name'],
+                info=item.get('info'),
+                video=item.get('video'),
+                audio=item.get('audio'),
+                text=item.get('text')
+            )
+            db.session.add(new_scripture)
+            scriptures.append(new_scripture)
+
         db.session.commit()
-        return jsonify(new_scripture.to_dict()), 201
+        return jsonify([scripture.to_dict() for scripture in scriptures]), 201
+
 
     # BLOGS
     @app.route('/blogs', methods=['GET'])
