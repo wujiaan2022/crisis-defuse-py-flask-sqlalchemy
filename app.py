@@ -33,24 +33,45 @@ def create_app():
     # === REST API ROUTES ===
 
     # USERS
-    @app.route('/users', methods=['GET'])
-    def get_users():
-        users = User.query.all()
-        return jsonify([user.to_dict() for user in users]), 200
-
     @app.route('/users', methods=['POST'])
     def add_user():
         data = request.json
         
-        if not data.get('name') or not data.get('email'):
-            abort(400, description="Name and email are required.")
-        if "@" not in data['email']:
-            abort(400, description="Invalid email format.")
+        # Check if the data is a list
+        if isinstance(data, list):
+            # Validate each user in the list
+            users = []
+            for item in data:
+                if not item.get('name') or not item.get('email') or not item.get('password'):
+                    abort(400, description="Name, email, and password are required for each user.")
+                if "@" not in item['email']:
+                    abort(400, description="Invalid email format.")
+                
+                # Create a new user and add to the list
+                new_user = User(name=item['name'], email=item['email'])
+                new_user.set_password(item['password'])  # Make sure to hash the password
+                users.append(new_user)
+
+            # Add all users to the database
+            db.session.add_all(users)
+            db.session.commit()
             
-        new_user = User(name=data['name'], email=data['email'])
-        db.session.add(new_user)
-        db.session.commit()
-        return jsonify(new_user.to_dict()), 201
+            # Return a list of created users
+            return jsonify([user.to_dict() for user in users]), 201
+        
+        else:
+            # If the input is not a list, handle it as a single user
+            if not data.get('name') or not data.get('email') or not data.get('password'):
+                abort(400, description="Name, email, and password are required.")
+            if "@" not in data['email']:
+                abort(400, description="Invalid email format.")
+            
+            new_user = User(name=data['name'], email=data['email'])
+            new_user.set_password(data['password'])
+            db.session.add(new_user)
+            db.session.commit()
+            return jsonify(new_user.to_dict()), 201
+
 
     @app.route('/users/<int:id>', methods=['GET'])
     def get_user(id):
@@ -87,8 +108,12 @@ def create_app():
 
     @app.route('/scriptures', methods=['POST'])
     def add_scriptures():
-        data = request.json  # Expecting a list of scripture objects
-        
+        data = request.json  # Can be either a single object or a list of objects
+
+        # If it's a single object, make it a list
+        if not isinstance(data, list):
+            data = [data]  # Wrap it in a list if it's not already a list
+
         scriptures = []
         for item in data:
             if not item.get('name'):
@@ -106,6 +131,7 @@ def create_app():
 
         db.session.commit()
         return jsonify([scripture.to_dict() for scripture in scriptures]), 201
+
     
     @app.route('/scriptures/<int:id>', methods=['GET'])
     def get_scripture(id):
