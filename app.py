@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from config import Config
 from models import db, User, Scripture, Blog, Comment
+from flask_jwt_extended import JWTManager
 
 
 def create_app():
@@ -11,6 +12,18 @@ def create_app():
 
     db.init_app(app)
     Migrate(app, db)  # Initialize Flask-Migrate
+    
+    # Initialize the JWTManager
+    jwt = JWTManager()
+    jwt.init_app(app)
+    
+    @app.errorhandler(404)
+    def not_found(error):
+        return jsonify({"error": "Resource not found"}), 404
+
+    @app.errorhandler(400)
+    def bad_request(error):
+        return jsonify({"error": str(error)}), 400    
 
     # Basic health-check route
     @app.route('/')
@@ -168,8 +181,15 @@ def create_app():
         return jsonify(new_comment.to_dict()), 201
 
     return app
-
+       
 
 if __name__ == "__main__":
     app = create_app()
+    
+     # Create the database and tables
+    # with app.app_context():
+    #     print("Creating database...")
+    #     db.create_all()
+    #     print("Database created!")
+    
     app.run(debug=True)
