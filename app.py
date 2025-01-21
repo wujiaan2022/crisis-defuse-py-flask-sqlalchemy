@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, abort
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from config import Config
@@ -28,6 +28,12 @@ def create_app():
     @app.route('/users', methods=['POST'])
     def add_user():
         data = request.json
+        
+        if not data.get('name') or not data.get('email'):
+            abort(400, description="Name and email are required.")
+        if "@" not in data['email']:
+            abort(400, description="Invalid email format.")
+            
         new_user = User(name=data['name'], email=data['email'])
         db.session.add(new_user)
         db.session.commit()
@@ -42,6 +48,12 @@ def create_app():
     def update_user(id):
         user = User.query.get_or_404(id)
         data = request.json
+        
+        if not data.get('name') or not data.get('email'):
+            abort(400, description="Name and email are required.")
+        if "@" not in data['email']:
+            abort(400, description="Invalid email format.")
+        
         user.name = data.get('name', user.name)
         user.email = data.get('email', user.email)
         db.session.commit()
@@ -63,9 +75,12 @@ def create_app():
     @app.route('/scriptures', methods=['POST'])
     def add_scriptures():
         data = request.json  # Expecting a list of scripture objects
+        
         scriptures = []
-
         for item in data:
+            if not item.get('name'):
+                abort(400, description="Name is required for each scripture.")
+            
             new_scripture = Scripture(
                 name=item['name'],
                 info=item.get('info'),
@@ -78,6 +93,35 @@ def create_app():
 
         db.session.commit()
         return jsonify([scripture.to_dict() for scripture in scriptures]), 201
+    
+    @app.route('/scriptures/<int:id>', methods=['GET'])
+    def get_scripture(id):
+        scripture = Scripture.query.get_or_404(id)
+        return jsonify(scripture.to_dict()), 200
+
+    @app.route('/scriptures/<int:id>', methods=['PUT'])
+    def update_scripture(id):
+        scripture = Scripture.query.get_or_404(id)
+        data = request.json  # Fixed to use request.json
+        
+        if not data.get('name'):
+            abort(400, description="Name is required.")
+                
+        scripture.name = data.get('name', scripture.name)
+        scripture.info = data.get('info', scripture.info)
+        scripture.audio = data.get('audio', scripture.audio)
+        scripture.video = data.get('video', scripture.video)
+        scripture.text = data.get('text', scripture.text)
+        
+        db.session.commit()
+        return jsonify(scripture.to_dict()), 200
+
+    @app.route('/scriptures/<int:id>', methods=['DELETE'])
+    def delete_scripture(id):
+        scripture = Scripture.query.get_or_404(id)
+        db.session.delete(scripture)
+        db.session.commit()
+        return jsonify({"message": "Scripture deleted"}), 200
 
 
     # BLOGS
@@ -89,6 +133,10 @@ def create_app():
     @app.route('/blogs', methods=['POST'])
     def add_blog():
         data = request.json
+        
+        if not data.get('title') or not data.get('content'):
+            abort(400, description="Title and content are required.")
+        
         new_blog = Blog(
             title=data['title'],
             content=data['content'],
@@ -106,6 +154,10 @@ def create_app():
     @app.route('/blogs/<int:blog_id>/comments', methods=['POST'])
     def add_comment(blog_id):
         data = request.json
+        
+        if not data.get('content'):
+            abort(400, description="Content is required for the comment.")
+        
         new_comment = Comment(
             content=data['content'],
             user_id=data['user_id'],
@@ -120,11 +172,4 @@ def create_app():
 
 if __name__ == "__main__":
     app = create_app()
-
-    # Uncomment this block to create tables if not using Flask-Migrate yet
-    # with app.app_context():
-    #     print("Creating database...")
-    #     db.create_all()
-    #     print("Database created!")
-
     app.run(debug=True)
