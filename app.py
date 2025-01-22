@@ -4,6 +4,7 @@ from flask_migrate import Migrate
 from config import Config
 from models import db, User, Scripture, Blog, Comment
 from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
+from datetime import timedelta
 
 
 def create_app():
@@ -51,8 +52,7 @@ def create_app():
         db.session.add(new_user)
         db.session.commit()
 
-        return jsonify(new_user.to_dict()), 201
-    
+        return jsonify(new_user.to_dict()), 201    
     
     @app.route('/login', methods=['POST'])
     def login():
@@ -71,24 +71,32 @@ def create_app():
             return jsonify(access_token=access_token), 200
         else:
             abort(401, description="Invalid credentials")
+        
     
-    
-    @app.route('/admin-dashboard', methods=['GET'])
+    @app.route('/admin', methods=['GET'])
     @jwt_required()
     def admin_dashboard():
+        # Print out the JWT token for debugging purposes
+        print(f"Authorization header: {request.headers.get('Authorization')}")
+        
         # Get the current user ID from the JWT token
         current_user_id = get_jwt_identity()
+        print(f"Current user ID: {current_user_id}")  # Debugging line
 
         # Retrieve the user from the database
         user = User.query.get(current_user_id)
+
+        if user is None:
+            abort(404, description="User not found.")  # Debugging line
+
+        print(f"User is admin: {user.is_admin}")  # Debugging line
 
         # Check if the user is an admin
         if not user.is_admin:
             abort(403, description="Admin access required.")
 
         # Admin dashboard logic here
-        return jsonify({"message": "Welcome to the admin dashboard!"}), 200
-    
+        return jsonify({"message": "Welcome to the admin dashboard!"}), 200    
 
 
     # === REST API ROUTES ===
@@ -143,16 +151,26 @@ def create_app():
     def update_user(id):
         user = User.query.get_or_404(id)
         data = request.json
-        
+
+        # Validate required fields
         if not data.get('name') or not data.get('email'):
             abort(400, description="Name and email are required.")
+        
         if "@" not in data['email']:
             abort(400, description="Invalid email format.")
         
+        # Update user fields
         user.name = data.get('name', user.name)
         user.email = data.get('email', user.email)
-        db.session.commit()
+
+        # Check if a new password is provided, and hash it using the set_password method
+        if data.get('password'):
+            user.set_password(data['password'])  # This will hash the new password
+
+        db.session.commit()  # Save the changes to the database
+        
         return jsonify(user.to_dict()), 200
+
 
     @app.route('/users/<int:id>', methods=['DELETE'])
     def delete_user(id):
