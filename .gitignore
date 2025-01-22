@@ -5,4 +5,4 @@ __pycache__/
 # Ignore environment variables
 .env
 
-
+data-backup/

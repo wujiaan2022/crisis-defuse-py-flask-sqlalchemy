@@ -3,7 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from config import Config
 from models import db, User, Scripture, Blog, Comment
-from flask_jwt_extended import JWTManager
+from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
 
 
 def create_app():
@@ -29,6 +29,67 @@ def create_app():
     @app.route('/')
     def home():
         return {"message": "CrisisDefuse backend is running!"}, 200
+    
+    @app.route('/register', methods=['POST'])
+    def register():
+        data = request.json
+        name = data.get('name')
+        email = data.get('email')
+        password = data.get('password')
+
+        if not name or not email or not password:
+            abort(400, description="Name, email, and password are required.")
+
+        # Check if the email already exists
+        existing_user = User.query.filter_by(email=email).first()
+        if existing_user:
+            abort(400, description="Email already in use.")
+
+        # Create the new user
+        new_user = User(name=name, email=email)
+        new_user.set_password(password)  # Hash the password
+        db.session.add(new_user)
+        db.session.commit()
+
+        return jsonify(new_user.to_dict()), 201
+    
+    
+    @app.route('/login', methods=['POST'])
+    def login():
+        data = request.json
+        email = data.get('email')
+        password = data.get('password')
+
+        if not email or not password:
+            abort(400, description="Email and password are required.")
+
+        # Find the user by email
+        user = User.query.filter_by(email=email).first()
+        if user and user.check_password(password):  # Check if password matches
+            # Create a JWT token
+            access_token = create_access_token(identity=user.id)
+            return jsonify(access_token=access_token), 200
+        else:
+            abort(401, description="Invalid credentials")
+    
+    
+    @app.route('/admin-dashboard', methods=['GET'])
+    @jwt_required()
+    def admin_dashboard():
+        # Get the current user ID from the JWT token
+        current_user_id = get_jwt_identity()
+
+        # Retrieve the user from the database
+        user = User.query.get(current_user_id)
+
+        # Check if the user is an admin
+        if not user.is_admin:
+            abort(403, description="Admin access required.")
+
+        # Admin dashboard logic here
+        return jsonify({"message": "Welcome to the admin dashboard!"}), 200
+    
+
 
     # === REST API ROUTES ===
 
