@@ -6,3 +6,6 @@ __pycache__/
 .env
 
 data-backup/
+
+
+instance/crisis_defuse.sqbpro

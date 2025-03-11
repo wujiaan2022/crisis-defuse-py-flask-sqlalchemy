@@ -52,7 +52,11 @@ class Scripture(db.Model):
     __tablename__ = 'scriptures'  # Specifies the table name in the database
     id = db.Column(db.Integer, primary_key=True)  # Unique identifier for each scripture
     name = db.Column(db.String(150), nullable=False)  # Name of the scripture
-    info = db.Column(db.Text)  # Additional information about the scripture
+    summary = db.Column(db.Text)  # Short summary (1-2 sentences)
+    introduction = db.Column(db.Text)  # Detailed introduction
+    precautions = db.Column(db.Text)  # Precautions to follow
+    daily_recitation = db.Column(db.Text)  # Recommended daily recitation count
+    prayer_statement = db.Column(db.Text)  # Specific prayer statement
     video = db.Column(db.String(200))  # URL or path to a related video
     audio = db.Column(db.String(200))  # URL or path to a related audio file
     text = db.Column(db.Text)  # Full text of the scripture
@@ -61,11 +65,16 @@ class Scripture(db.Model):
         return {
             "id": self.id,
             "name": self.name,
-            "info": self.info,
+            "summary": self.summary,
+            "introduction": self.introduction,
+            "precautions": self.precautions,
+            "daily_recitation": self.daily_recitation,
+            "prayer_statement": self.prayer_statement,
             "video": self.video,
             "audio": self.audio,
             "text": self.text
         }
+
 
 
 class Blog(db.Model):
