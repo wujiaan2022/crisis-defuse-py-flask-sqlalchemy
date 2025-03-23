@@ -2,7 +2,7 @@ from flask import Blueprint, request, jsonify, abort
 from models import db, User
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
 import logging
-from utils.helpers import is_valid_email
+from utils.valid_email_helpers import is_valid_email
 
 users_bp = Blueprint('users', __name__)
 

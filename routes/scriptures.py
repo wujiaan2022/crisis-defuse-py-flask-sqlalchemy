@@ -1,5 +1,6 @@
 from flask import Blueprint, request, jsonify, abort
 from models import db, Scripture
+from utils.scripture_helpers import create_scripture_objects
 
 scriptures_bp = Blueprint('scriptures', __name__)
 
@@ -19,31 +20,12 @@ def get_scripture(scripture_id):
 @scriptures_bp.route('/', methods=['POST'])
 def create_scriptures():
     data = request.json
-
-    if not isinstance(data, list):  # If it's a single object, convert to a list
+    if not isinstance(data, list):
         data = [data]
 
-    scriptures = []
-    for item in data:
-        if not item.get('name'):
-            abort(400, description="Name is required for each scripture.")
-
-        new_scripture = Scripture(
-            name=item['name'],
-            summary=item.get('summary'),
-            introduction=item.get('introduction'),
-            precautions=item.get('precautions'),
-            daily_recitation=item.get('daily_recitation'),
-            prayer_statement=item.get('prayer_statement'),
-            video=item.get('video'),
-            audio=item.get('audio'),
-            text=item.get('text')
-        )
-        db.session.add(new_scripture)
-        scriptures.append(new_scripture)
-
+    scriptures = create_scripture_objects(data)
     db.session.commit()
-    return jsonify([scripture.to_dict() for scripture in scriptures]), 201
+    return jsonify([s.to_dict() for s in scriptures]), 201
 
 # ✅ Update an existing scripture
 @scriptures_bp.route('/<int:scripture_id>', methods=['PUT'])
@@ -54,7 +36,10 @@ def update_scripture(scripture_id):
     if not data.get('name'):
         abort(400, description="Name is required.")
 
+    # ✨ Update fields with fallback to current values
     scripture.name = data.get('name', scripture.name)
+    scripture.title = data.get('title', scripture.title)
+    scripture.content = data.get('content', scripture.content)
     scripture.summary = data.get('summary', scripture.summary)
     scripture.introduction = data.get('introduction', scripture.introduction)
     scripture.precautions = data.get('precautions', scripture.precautions)
@@ -62,7 +47,6 @@ def update_scripture(scripture_id):
     scripture.prayer_statement = data.get('prayer_statement', scripture.prayer_statement)
     scripture.audio = data.get('audio', scripture.audio)
     scripture.video = data.get('video', scripture.video)
-    scripture.text = data.get('text', scripture.text)
 
     db.session.commit()
     return jsonify(scripture.to_dict()), 200

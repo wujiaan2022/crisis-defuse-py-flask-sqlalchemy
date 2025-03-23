@@ -1,16 +1,19 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
-from config import Config
-from models import db
 from flask_jwt_extended import JWTManager
 from flask_cors import CORS
+
+from config import Config
+from models import db
 
 from routes.users import users_bp
 from routes.scriptures import scriptures_bp
 from routes.blogs import blogs_bp
 from routes.errors import errors_bp
 from routes.home import home_bp
+
+# from scripts.load_scriptures import load_scriptures_from_json  # 👈 Required
 
 
 def create_app():
@@ -31,8 +34,13 @@ def create_app():
     app.register_blueprint(scriptures_bp, url_prefix='/scriptures')
     app.register_blueprint(blogs_bp, url_prefix='/blogs')
     app.register_blueprint(errors_bp)  # ✅ No prefix for error handlers
-    app.register_blueprint(home_bp)    # ✅ No prefix for the home route
-
+    app.register_blueprint(home_bp)    # ✅ No prefix for the home route  
+      
+    # @app.cli.command("load-scriptures")
+    # def load_scriptures():
+    #     """CLI command to load scriptures from JSON."""
+    #     load_scriptures_from_json()
+    
     return app
        
 

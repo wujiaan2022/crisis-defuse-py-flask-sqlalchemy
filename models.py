@@ -59,7 +59,8 @@ class Scripture(db.Model):
     prayer_statement = db.Column(db.Text)  # Specific prayer statement
     video = db.Column(db.String(200))  # URL or path to a related video
     audio = db.Column(db.String(200))  # URL or path to a related audio file
-    text = db.Column(db.Text)  # Full text of the scripture
+    title = db.Column(db.String(200), nullable=True)  # Short, searchable
+    content = db.Column(db.Text, nullable=True)       # Long scripture body
 
     def to_dict(self):
         return {
@@ -72,7 +73,8 @@ class Scripture(db.Model):
             "prayer_statement": self.prayer_statement,
             "video": self.video,
             "audio": self.audio,
-            "text": self.text
+            "title": self.title,
+            "content": self.content,            
         }
 
 
