@@ -1,6 +1,8 @@
 from flask import Blueprint, request, jsonify, abort
 from models import db, Scripture
 from utils.scripture_helpers import create_scripture_objects
+from sqlalchemy import or_
+
 
 scriptures_bp = Blueprint('scriptures', __name__)
 
@@ -58,3 +60,57 @@ def delete_scripture(scripture_id):
     db.session.delete(scripture)
     db.session.commit()
     return jsonify({"message": f"Scripture {scripture_id} deleted successfully"}), 200
+
+
+@scriptures_bp.route('/crisis-selection', methods=['GET'])
+def get_scriptures_by_crisis():
+    crises = request.args.getlist('crises')
+
+    if not crises:
+        return jsonify({"error": "At least one crisis is required."}), 400
+
+    # Get 2 foundation scriptures (same for all)
+    foundation = Scripture.query.filter_by(type='foundation').limit(2).all()
+    foundation_data = [s.to_dict() for s in foundation]
+
+    # Get all other scriptures (type != 'foundation')
+    all_others = Scripture.query.filter(Scripture.type != 'foundation').all()
+
+    result = {}
+
+    for crisis in crises:
+        main_scriptures = []
+        help_scriptures = []
+
+        for s in all_others:
+            roles = s.crisis_roles or {}
+            role = roles.get(crisis)
+
+            if role == 'main':
+                main_scriptures.append(s.to_dict())
+            elif role == 'help':
+                help_scriptures.append(s.to_dict())
+
+        result[crisis] = {
+            "foundation": foundation_data,              # show same 2 foundation
+            "main": main_scriptures[:2],                # max 2
+            "help": help_scriptures[:2]                 # max 2
+        }
+
+    return jsonify(result), 200
+
+
+
+# @scriptures_bp.route('/crisis-selection', methods=['GET'])
+# def get_scriptures_by_crisis():
+#     selected_crises = request.args.getlist("crises")
+#     print("🌟 Selected Crises received from frontend:", selected_crises)
+
+#     # Temporary hardcoded test response
+#     return jsonify({
+#         "scriptures": [
+#             "The Heart Sutra (3x/day)",
+#             "Medicine Buddha Mantra (7x/day)"
+#         ]
+#     })
+

@@ -55,9 +55,9 @@ if __name__ == "__main__":
     
     # Create the database and tables
     # ✅ Create a fresh database with the current model
-    with app.app_context():
-        print("🧱 Creating a fresh database...")
-        db.create_all()
-        print("✅ Database created!")
+    # with app.app_context():
+    #     print("🧱 Creating a fresh database...")
+    #     db.create_all()
+    #     print("✅ Database created!")
     
     app.run(debug=True)

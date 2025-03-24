@@ -30,7 +30,10 @@
   {
     "name": "Amitabha Pure Land Rebirth Mantra",
     "type": "other",
-    "crisis_roles": {},
+    "crisis_roles": {
+      "Health Issues": "main",
+      "Sudden & Unforeseen Misfortune": "help"
+    },
     "summary": "Reciting this mantra, you are sincerely asking protection and blessings from Guan Yin Bodhisattva to grant a pleasant life in the present, and rebirth into the Pure Land in the future. It can also be recited to transfer merits to small animals that you may have killed in the past, including avian, aquatic creatures, and insects.",
     "introduction": "Recitation of Pa Yi Chieh Yeh Chang Ken Pen Te Sheng Ching Tu To Lo Ni, Sukhavati-Vyuha Dharani in Sanskrit, or the Amitabha Pure Land Rebirth Mantra (Wang Sheng Chou) in short, is for sincerely asking protection and blessings from Guan Yin Bodhisattva to grant a pleasant life in the present, and rebirth into the Pure Land in the future. It can also be recited to transfer merits to small animals that you may have killed in the past, including avian, aquatic creatures, and insects. If you have eaten live seafood or animals before you started performing recitations and practising Buddhism, or have inadvertently harmed animals, including killing or hurting animals in your dreams, you can recite this mantra to transfer merits to them.",
     "precautions": "The Amitabha Pure Land Rebirth Mantra can be recited until 10PM during good weather. If it is cloudy or rainy, it is best if you can recite it during day time. You should avoid reciting the Amitabha Pure Land Rebirth Mantra after 10PM, or during extreme weather, including heavy rain, thunderstorm, and lightning.",
@@ -44,7 +47,10 @@
   {
     "name": "Cundi Dharani",
     "type": "other",
-    "crisis_roles": {},
+    "crisis_roles": {
+      "Career Struggles & Setbacks": "main",
+      "Sudden & Unforeseen Misfortune": "help"
+    },
     "summary": "Reciting this Cundi Dharani, you are sincerely asking assistance from Guan Yin Bodhisattva to fulfil wishes. Some of its great powers include: success in career development; harmony in marriage and relationships; and academic achievements. It is particularly helpful for young adults for finding a suitable job and partner in life. However, the wishes you make must be reasonable and legitimate.",
     "introduction": "Recitation of Chun Ti Shen Chou, or the Cundi Dharani in Sanskrit, is for sincerely asking assistance from Guan Yin Bodhisattva to fulfil wishes. Some of its great powers include: success in career development; harmony in marriage and relationships; and academic achievements. It is particularly helpful for young adults for finding a suitable job and partner in life. However, the wishes you make must be reasonable and legitimate.",
     "precautions": "",
@@ -58,7 +64,10 @@
   {
     "name": "Mantra to Untie Karmic Knots",
     "type": "other",
-    "crisis_roles": {},
+    "crisis_roles": {
+      "Relationship & Social Conflict": "main",
+      "Career Struggles & Setbacks": "help"
+    },
     "summary": "Reciting this mantra, you are sincerely asking assistance from Guan Yin Bodhisattva to 'untie karmic knots', or to resolve interpersonal conflicts.",
     "introduction": "Recitation of Chieh Chieh Chou, or the Mantra to Untie Karmic Knots in English, is for sincerely asking assistance from Guan Yin Bodhisattva to “untie karmic knots”, or to resolve interpersonal conflicts. Some of its great powers include: clearing misunderstandings between couples; creating harmony in marriage and family; resolving conflicts at work; and eliminating karmic obstacles due to negative karmas from past lives.",
     "precautions": "",
@@ -72,7 +81,10 @@
   {
     "name": "Xiao Zai Ji Xiang Shen Zhou (Mantra to Disperse Calamities)",
     "type": "other",
-    "crisis_roles": {},
+    "crisis_roles": {
+      "Sudden & Unforeseen Misfortune": "main",
+      "Career Struggles & Setbacks": "help"
+    },
     "summary": "This mantra can be recited during sudden and unexpected situations. It can also be used for resolving conflicts due to negative karmic relationships from the past. It can be recited during unexpected situations such as lawsuits, financial loss, serious fights, and sudden illness.",
     "introduction": "Xiao Zai Ji Xiang Shen Zhou (Hsiao Tsai Chi Hsiang Shen Chou), the Mantra to Disperse Calamities or the Jvala Mahaugra Dharani in Sanskrit, can be recited during sudden and unexpected situations. It can also be used for resolving conflicts due to negative karmic relationships from the past. It can be recited during unexpected situations such as lawsuits, financial loss, serious fights, and sudden illness. This mantra can also help when you have foreseen impending disasters, or have experienced nightmares.",
     "precautions": "",
