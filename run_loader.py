@@ -5,3 +5,4 @@ app = create_app()
 
 with app.app_context():
     load_scriptures_from_json()
+

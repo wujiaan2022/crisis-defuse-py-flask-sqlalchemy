@@ -1,3 +1,7 @@
+import os
+import sys
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
@@ -42,15 +46,18 @@ def create_app():
     #     load_scriptures_from_json()
     
     return app
-       
+
+# ✅ This is what the CLI needs!
+app = create_app()       
 
 if __name__ == "__main__":
     app = create_app()
     
     # Create the database and tables
-    # with app.app_context():
-    #     print("Creating database...")
-    #     db.create_all()
-    #     print("Database created!")
+    # ✅ Create a fresh database with the current model
+    with app.app_context():
+        print("🧱 Creating a fresh database...")
+        db.create_all()
+        print("✅ Database created!")
     
     app.run(debug=True)

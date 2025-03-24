@@ -1,6 +1,9 @@
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 
+from sqlalchemy.ext.mutable import MutableDict
+from sqlalchemy.dialects.sqlite import JSON
+
 
 db = SQLAlchemy()
 
@@ -61,6 +64,10 @@ class Scripture(db.Model):
     audio = db.Column(db.String(200))  # URL or path to a related audio file
     title = db.Column(db.String(200), nullable=True)  # Short, searchable
     content = db.Column(db.Text, nullable=True)       # Long scripture body
+    
+    # ✅ New fields
+    type = db.Column(db.String(50), default="other")  # "foundation" or "other"
+    crisis_roles = db.Column(MutableDict.as_mutable(JSON), default={})
 
     def to_dict(self):
         return {
@@ -74,7 +81,9 @@ class Scripture(db.Model):
             "video": self.video,
             "audio": self.audio,
             "title": self.title,
-            "content": self.content,            
+            "content": self.content,
+            "type": self.type,
+            "crisis_roles": self.crisis_roles       
         }
 
 

@@ -17,8 +17,11 @@ def create_scripture_objects(data_list):
             video=item.get('video'),
             audio=item.get('audio'),
             title=item.get('title', item.get('name')),
-            content=item.get('content', 'Content coming soon.')
+            content=item.get('content', 'Content coming soon.'),
+            type=item.get('type', 'other'),
+            crisis_roles=item.get('crisis_roles', {})
         )
+
         db.session.add(scripture)
         scriptures.append(scripture)
 

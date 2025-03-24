@@ -1,6 +1,8 @@
 [
   {
     "name": "Great Compassion Mantra",
+    "type": "foundation",
+    "crisis_roles": {},
     "summary": "This mantra can fulfil wishes, cure illnesses and grant protection to those who recite it. During critical times such as prior to an operation, it should be recited 21 or 49 times per day–the more the better.",
     "introduction": "Recitation of Chien Shou Chien Yan Wu Ai Ta Pei Hsin To Lo Ni, Maha Karuna Dharani in Sanskrit, or the Great Compassion Mantra (Ta Pei Chou) in short, is one of the fundamental mantras for every Buddhist, and should be included in the Daily Recitation. Some of its great powers include: fulfilling every wish of every sentient being; curing illnesses; and receiving protection and blessings from Sravakas, Pratyekabuddhas, and Dharma Protectors. By reciting this mantra everyday, you would be able to choose to be reborn into any Pure Land for your next life.",
     "precautions": "The full title of each sutra and mantra should be included each time before it is recited. Before reciting the content of the Great Compassion Mantra, you should recite its full title: Chien Shou Chien Yan Wu Ai Ta Pei Hsin To Lo Ni.",
@@ -13,6 +15,8 @@
   },
   {
     "name": "Heart Sutra",
+    "type": "foundation",
+    "crisis_roles": {},
     "summary": "Reciting this sutra will help connect you to Guan Yin Bodhisattva. This sutra helps you uncover your wisdom, get along well with people and regain a peaceful state of mind. This sutra can be recited 3 or 7 times per day, but avoid reciting it after 10 pm.",
     "introduction": "Recitation of Po Jo Po Lo Mi To Hsin Ching, Prajna Paramita Hrdaya Sutra in Sanskrit, or the Heart Sutra (Hsin Ching) in short, is for establishing connections with Guan Yin Bodhisattva, and to obtain wisdom through the mercy and compassion of Guan Yin Bodhisattva. This sutra takes the form of energy in the Asura realm and the Deva realm (known as “Heaven” in English), currency in the underworld, and wisdom in the human realm. Some of its great powers include: disciplining misbehaved children; influencing adults to have a religious belief e.g. Buddhism; communicating with elders who are stubborn; calming emotions; granting wisdom; and alleviating depression. It can also be used for performing the transferring of merits to the deceased.",
     "precautions": "The full title of each sutra and mantra should be included each time before it is recited. For example, before reciting the content of the Heart Sutra, you should recite its full title: Po Jo Po Lo Mi To Hsin Ching.",
@@ -24,63 +28,59 @@
     "content": "观自在菩萨，行深般若波罗蜜多时，照见五蕴皆空，度一切苦厄。舍利子，色不异空，空不异色，色即是空，空即是色。受想行识，亦复如是。舍利子，是诸法空相，不生不灭，不垢不净，不增不减，是故空中无色，无受想行识，无眼耳鼻舌身意，无色声香味触法，无眼界，乃至无意识界，无无明，亦无无明尽，乃至无老死，亦无老死尽。无苦集灭道，无智亦无得，以无所得故。菩提萨埵，依般若波罗蜜多故，心无罣碍。无罣碍故，无有恐怖，远离颠倒梦想，究竟涅槃。三世诸佛，依般若波罗蜜多故，得阿耨多罗三藐三菩提。故知般若波罗蜜多，是大神咒，是大明咒，是无上咒，是无等等咒。能除一切苦，真实不虚。故说般若波罗蜜多咒。即说咒曰：揭谛揭谛，波罗揭谛，波罗僧揭谛，菩提萨婆诃。摩诃般若波罗蜜多（三称）"
   },
   {
-    "name": "Eighty-Eight Buddhas Great Repentance",
-    "summary": "When reciting this mantra, you repent before many Buddhas of your previous mistakes, such as hurting someone you love, showing disrespect for Buddhas, etc. This text can be recited once or three times per day.",
-    "introduction": "",
-    "precautions": "",
-    "daily_recitation": "",
-    "prayer_statement": "",
-    "video": "",
-    "audio": "",
-    "title": "",
-    "content": ""
-  },
-  {
     "name": "Amitabha Pure Land Rebirth Mantra",
+    "type": "other",
+    "crisis_roles": {},
     "summary": "Reciting this mantra, you are sincerely asking protection and blessings from Guan Yin Bodhisattva to grant a pleasant life in the present, and rebirth into the Pure Land in the future. It can also be recited to transfer merits to small animals that you may have killed in the past, including avian, aquatic creatures, and insects.",
-    "introduction": "",
-    "precautions": "",
-    "daily_recitation": "",
-    "prayer_statement": "",
-    "video": "",
-    "audio": "",
-    "title": "",
-    "content": ""
+    "introduction": "Recitation of Pa Yi Chieh Yeh Chang Ken Pen Te Sheng Ching Tu To Lo Ni, Sukhavati-Vyuha Dharani in Sanskrit, or the Amitabha Pure Land Rebirth Mantra (Wang Sheng Chou) in short, is for sincerely asking protection and blessings from Guan Yin Bodhisattva to grant a pleasant life in the present, and rebirth into the Pure Land in the future. It can also be recited to transfer merits to small animals that you may have killed in the past, including avian, aquatic creatures, and insects. If you have eaten live seafood or animals before you started performing recitations and practising Buddhism, or have inadvertently harmed animals, including killing or hurting animals in your dreams, you can recite this mantra to transfer merits to them.",
+    "precautions": "The Amitabha Pure Land Rebirth Mantra can be recited until 10PM during good weather. If it is cloudy or rainy, it is best if you can recite it during day time. You should avoid reciting the Amitabha Pure Land Rebirth Mantra after 10PM, or during extreme weather, including heavy rain, thunderstorm, and lightning.",
+    "daily_recitation": "Generally 21, 27 or 49 times per day.",
+    "prayer_statement": "Before reciting this mantra, you can say your prayer or wish as follows, “May the Great Merciful and Great Compassionate Guan Yin Bodhisattva protect and bless me, <your full name>, help me to transfer merits to the deceased animals whose death I have caused, and help me to cease karmic obstacles due to negative karmas.”",
+    "video": "/static/video/《往生净土神咒》The Amitabha Pure Land Rebirth Mantra.mp4",
+    "audio": "/static/audio/Amitabha Pure Land Rebirth Mantra.mp3",
+    "title": "往生净土神咒",
+    "content": "南无阿弥多婆夜。哆他伽多夜。哆地夜他。阿弥利都婆毗。阿弥利哆。悉耽婆毗。阿弥唎哆。毗迦兰帝。阿弥唎哆。毗迦兰多。伽弥腻伽伽那。枳多迦利。娑婆诃。"
   },
   {
     "name": "Cundi Dharani",
+    "type": "other",
+    "crisis_roles": {},
     "summary": "Reciting this Cundi Dharani, you are sincerely asking assistance from Guan Yin Bodhisattva to fulfil wishes. Some of its great powers include: success in career development; harmony in marriage and relationships; and academic achievements. It is particularly helpful for young adults for finding a suitable job and partner in life. However, the wishes you make must be reasonable and legitimate.",
-    "introduction": "",
+    "introduction": "Recitation of Chun Ti Shen Chou, or the Cundi Dharani in Sanskrit, is for sincerely asking assistance from Guan Yin Bodhisattva to fulfil wishes. Some of its great powers include: success in career development; harmony in marriage and relationships; and academic achievements. It is particularly helpful for young adults for finding a suitable job and partner in life. However, the wishes you make must be reasonable and legitimate.",
     "precautions": "",
-    "daily_recitation": "",
-    "prayer_statement": "",
-    "video": "",
-    "audio": "",
-    "title": "",
-    "content": ""
+    "daily_recitation": "Generally 21, 27 or 49 times per day; can be recited day or night.",
+    "prayer_statement": "Before reciting this mantra, you can say your prayer or wish as follows, “May the Great Merciful and Great Compassionate Guan Yin Bodhisattva protect and bless me, <your full name>, grant me good fortune and success in career (or any other reasonable wish you may have).”",
+    "video": "/static/video/《准提神咒》The Cundi Dharani.mp4",
+    "audio": "/static/audio/Cundi Dharani.mp3",
+    "title": "准提神咒",
+    "content": "稽首皈依苏悉帝, 头面顶礼七俱胝, 我今称赞大准提, 唯愿慈悲垂加护。南无飒哆喃。三藐三菩陀。俱胝喃。怛姪他。唵。折戾主戾。准提娑婆诃。"
   },
   {
     "name": "Mantra to Untie Karmic Knots",
+    "type": "other",
+    "crisis_roles": {},
     "summary": "Reciting this mantra, you are sincerely asking assistance from Guan Yin Bodhisattva to 'untie karmic knots', or to resolve interpersonal conflicts.",
-    "introduction": "",
+    "introduction": "Recitation of Chieh Chieh Chou, or the Mantra to Untie Karmic Knots in English, is for sincerely asking assistance from Guan Yin Bodhisattva to “untie karmic knots”, or to resolve interpersonal conflicts. Some of its great powers include: clearing misunderstandings between couples; creating harmony in marriage and family; resolving conflicts at work; and eliminating karmic obstacles due to negative karmas from past lives.",
     "precautions": "",
-    "daily_recitation": "",
-    "prayer_statement": "",
-    "video": "",
-    "audio": "",
-    "title": "",
-    "content": ""
+    "daily_recitation": "Generally 21, 27 or 49 times per day; can be recited day or night.",
+    "prayer_statement": "Before reciting this mantra, you can say your prayer or wish as follows, “May the Great Merciful and Great Compassionate Guan Yin Bodhisattva protect and bless me, <your full name>, help me to untie my negative karmic knots with <other party’s full name>, and to transform and resolve our conflicts.” The other party can be your relative, friend, or colleague.",
+    "video": "/static/video/《解结咒》The Mantra to Untie Karmic Knots.mp4",
+    "audio": "/static/audio/Mantra to Untie Karmic Knots.mp3",
+    "title": "解结咒",
+    "content": "唵。齿令金匝金匝胜金匝。我今为汝解金匝。终不为汝结金匝。唵。祥中祥。吉中吉。波罗会上有珠琍。一切冤家化吉祥。摩诃般若般罗密。"
   },
   {
     "name": "Xiao Zai Ji Xiang Shen Zhou (Mantra to Disperse Calamities)",
+    "type": "other",
+    "crisis_roles": {},
     "summary": "This mantra can be recited during sudden and unexpected situations. It can also be used for resolving conflicts due to negative karmic relationships from the past. It can be recited during unexpected situations such as lawsuits, financial loss, serious fights, and sudden illness.",
-    "introduction": "",
+    "introduction": "Xiao Zai Ji Xiang Shen Zhou (Hsiao Tsai Chi Hsiang Shen Chou), the Mantra to Disperse Calamities or the Jvala Mahaugra Dharani in Sanskrit, can be recited during sudden and unexpected situations. It can also be used for resolving conflicts due to negative karmic relationships from the past. It can be recited during unexpected situations such as lawsuits, financial loss, serious fights, and sudden illness. This mantra can also help when you have foreseen impending disasters, or have experienced nightmares.",
     "precautions": "",
-    "daily_recitation": "",
-    "prayer_statement": "",
-    "video": "",
-    "audio": "",
-    "title": "",
-    "content": ""
+    "daily_recitation": "Generally 21, 27 or 49 times per day; can be recited day or night.",
+    "prayer_statement": "Before reciting this mantra, you can say your prayer or wish as follows, “May the Great Merciful and Great Compassionate Guan Yin Bodhisattva protect and bless me, <your full name>, help me to disperse calamities, and bring safety and good fortune.”",
+    "video": "/static/video/《消灾吉祥神咒》 The Mantra to Disperse Calamities.mp4",
+    "audio": "/static/audio/Jvala Mahaugra Dharani.mp3",
+    "title": "消灾吉祥神咒",
+    "content": "曩谟三满哆。母驮喃。阿钵啰底。贺多舍。娑曩喃。怛姪他。唵。佉佉。佉呬。佉呬。吽吽。入嚩啰。入嚩啰。钵啰入嚩啰。钵啰入嚩啰。底瑟姹。底瑟姹。瑟致哩。瑟致哩。娑癹吒。娑癹吒。扇底迦。室哩曳。娑嚩诃。"
   }
 ]
