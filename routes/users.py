@@ -30,7 +30,11 @@ def register():
     db.session.add(new_user)
     db.session.commit()
 
-    return jsonify(new_user.to_dict()), 201    
+    # ✅ Generate JWT token after registration
+    access_token = create_access_token(identity=new_user.id)
+
+    # ✅ Send token and name to frontend
+    return jsonify(access_token=access_token, name=new_user.name), 201    
 
 @users_bp.route('/login', methods=['POST'])
 def login():
@@ -44,7 +48,7 @@ def login():
     user = User.query.filter_by(email=email).first()
     if user and user.check_password(password):
         access_token = create_access_token(identity=user.id)
-        return jsonify(access_token=access_token), 200
+        return jsonify(access_token=access_token, name=user.name), 200
 
     abort(401, description="Invalid credentials")
 
