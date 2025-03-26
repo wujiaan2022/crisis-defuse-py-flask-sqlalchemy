@@ -36,6 +36,7 @@ def register():
     # ✅ Send token and name to frontend
     return jsonify(access_token=access_token, name=new_user.name), 201    
 
+
 @users_bp.route('/login', methods=['POST'])
 def login():
     data = request.json
@@ -51,98 +52,55 @@ def login():
         return jsonify(access_token=access_token, name=user.name), 200
 
     abort(401, description="Invalid credentials")
-
-
-@users_bp.route('/admin', methods=['GET'])
-@jwt_required()
-def admin_dashboard():
-    current_user_id = get_jwt_identity()
-    user = User.query.get(current_user_id)
-
-    if user is None:
-        abort(404, description="User not found.")
-
-    if not user.is_admin:
-        abort(403, description="Admin access required.")
-
-    logging.info(f"Admin Access: User {user.id} accessed admin dashboard.")
-
-    return jsonify({"message": "Welcome to the admin dashboard!"}), 200  
-
-
-# === REST API ROUTES ===
-
-@users_bp.route('/', methods=['POST'])
-def add_user():
-    data = request.json
     
-    if isinstance(data, list):
-        users = []
-        for item in data:
-            if not item.get('name') or not item.get('email') or not item.get('password'):
-                abort(400, description="Name, email, and password are required for each user.")
-            if not is_valid_email(item['email']):
-                abort(400, description="Invalid email format.")
-            
-            new_user = User(name=item['name'], email=item['email'])
-            new_user.set_password(item['password'])
-            users.append(new_user)
-
-        db.session.add_all(users)
-        db.session.commit()
-        
-        return jsonify([user.to_dict() for user in users]), 201
     
-    else:
-        if not data.get('name') or not data.get('email') or not data.get('password'):
-            abort(400, description="Name, email, and password are required.")
-        if not is_valid_email(data['email']):
-            abort(400, description="Invalid email format.")
-        
-        new_user = User(name=data['name'], email=data['email'])
-        new_user.set_password(data['password'])
-        db.session.add(new_user)
-        db.session.commit()
-        return jsonify(new_user.to_dict()), 201
-
-
-@users_bp.route('/', methods=['GET'])
-def get_users():
-    users = User.query.all()
-    return jsonify([user.to_dict() for user in users]), 200
-
-
 @users_bp.route('/<int:id>', methods=['GET'])
-def get_user(id):
+@jwt_required()
+def get_user_by_id(id):
+    current_user = User.query.get(get_jwt_identity())
+
+    # Allow access if it's self or if user is admin
+    if not current_user or (current_user.id != id and not current_user.is_admin):
+        abort(403, description="You can only view your own profile unless you're an admin.")
+
     user = User.query.get_or_404(id)
     return jsonify(user.to_dict()), 200
 
 
-@users_bp.route('/<int:id>', methods=['PUT'])
+@users_bp.route('/<int:id>', methods=['PATCH'])
+@jwt_required()
 def update_user(id):
+    current_user = User.query.get(get_jwt_identity())
+    
+    # Only allow if user is updating their own profile OR admin
+    if not current_user or (current_user.id != id and not current_user.is_admin):
+        abort(403, description="You can only update your own profile unless you're an admin.")
+
     user = User.query.get_or_404(id)
     data = request.json
-
-    if not data.get('name') or not data.get('email'):
-        abort(400, description="Name and email are required.")
-    
-    if not is_valid_email(data['email']):
-        abort(400, description="Invalid email format.")
-    
-    user.name = data.get('name', user.name)
-    user.email = data.get('email', user.email)
-
-    if data.get('password'):
-        user.set_password(data['password'])
+    if 'name' in data:
+        user.name = data['name']
+    if 'email' in data:
+        user.email = data['email']
 
     db.session.commit()
-    
     return jsonify(user.to_dict()), 200
 
 
 @users_bp.route('/<int:id>', methods=['DELETE'])
+@jwt_required()
 def delete_user(id):
+    current_user = User.query.get(get_jwt_identity())
+    
+    if not current_user or (current_user.id != id and not current_user.is_admin):
+        abort(403, description="You can only delete your own account unless you're an admin.")
+
     user = User.query.get_or_404(id)
+    
+     # ✅ Log this critical action
+    logging.info(f"User {current_user.id} deleted user {id}")
+    
     db.session.delete(user)
     db.session.commit()
-    return jsonify({"message": "User deleted"}), 200
+    return jsonify(message=f"User {id} deleted successfully"), 200
+

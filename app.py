@@ -12,6 +12,7 @@ from config import Config
 from models import db
 
 from routes.users import users_bp
+from routes.admin import admin_bp
 from routes.scriptures import scriptures_bp
 from routes.blogs import blogs_bp
 from routes.errors import errors_bp
@@ -24,7 +25,8 @@ def create_app():
     app = Flask(__name__, static_url_path='/static')
     app.config.from_object(Config)
 
-    db.init_app(app)
+    db.init_app(app)  #This tells Flask-SQLAlchemy to bind the app to the db instance
+    
     Migrate(app, db)  # Initialize Flask-Migrate
     
     # ✅ Allow all origins, methods, and headers
@@ -36,6 +38,7 @@ def create_app():
     # Register Blueprints
     app.register_blueprint(users_bp, url_prefix='/users')
     app.register_blueprint(scriptures_bp, url_prefix='/scriptures')
+    app.register_blueprint(admin_bp, url_prefix='/admin')
     app.register_blueprint(blogs_bp, url_prefix='/blogs')
     app.register_blueprint(errors_bp)  # ✅ No prefix for error handlers
     app.register_blueprint(home_bp)    # ✅ No prefix for the home route  
@@ -51,7 +54,7 @@ def create_app():
 app = create_app()       
 
 if __name__ == "__main__":
-    app = create_app()
+    # app = create_app()
     
     # Create the database and tables
     # ✅ Create a fresh database with the current model
