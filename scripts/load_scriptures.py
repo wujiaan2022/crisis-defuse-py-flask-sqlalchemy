@@ -2,6 +2,7 @@ import json
 from models import db, Scripture  # Make sure models.py is in the root folder
 from utils.scripture_helpers import create_scripture_objects  # Reuses your validation logic
 from flask import current_app
+from app import app
 
 
 def load_scriptures_from_json(filepath="test_data/scriptures.json"):
@@ -14,7 +15,7 @@ def load_scriptures_from_json(filepath="test_data/scriptures.json"):
         if not isinstance(data, list):
             data = [data]
 
-        with current_app.app_context():
+        with app.app_context():
             # ❗️ Delete all existing scriptures
             num_deleted = Scripture.query.delete()
             print(f"🗑️ Deleted {num_deleted} existing scriptures.")
