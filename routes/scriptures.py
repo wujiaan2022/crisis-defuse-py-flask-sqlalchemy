@@ -2,6 +2,7 @@ from flask import Blueprint, request, jsonify, abort, Response
 from models import db, Scripture
 from utils.scripture_helpers import create_scripture_objects
 from sqlalchemy import or_
+import json
 
 
 scriptures_bp = Blueprint('scriptures', __name__)
