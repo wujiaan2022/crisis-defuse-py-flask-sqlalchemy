@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify, abort
+from flask import Blueprint, request, jsonify, abort, Response
 from models import db, Scripture
 from utils.scripture_helpers import create_scripture_objects
 from sqlalchemy import or_
@@ -117,9 +117,13 @@ def get_scriptures_by_crisis():
 
 @scriptures_bp.route("/check-scriptures")
 def check_scriptures():
-    from models import Scripture  # or wherever your model is
+    from models import Scripture
     scriptures = Scripture.query.all()
-    return {
+    data = {
         "total": len(scriptures),
         "titles": [s.title for s in scriptures]
     }
+    return Response(
+        json.dumps(data, ensure_ascii=False),  # <-- 🪄 magic flag
+        content_type="application/json; charset=utf-8"
+    )

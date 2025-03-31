@@ -3,6 +3,6 @@ from scripts.load_scriptures import load_scriptures_from_json
 
 app = create_app()
 
-with app.app_context():
-    load_scriptures_from_json()
+# 🌟 Let the loader manage the context
+load_scriptures_from_json(app)
 

@@ -5,7 +5,8 @@ from flask import current_app
 from app import app
 
 
-def load_scriptures_from_json(filepath="test_data/scriptures.json"):
+def load_scriptures_from_json(app, filepath="test_data/scriptures.json"):
+
     from models import Scripture  # (import inside to avoid circular import)
 
     try:
@@ -16,6 +17,8 @@ def load_scriptures_from_json(filepath="test_data/scriptures.json"):
             data = [data]
 
         with app.app_context():
+            
+            print("📦 Using DB:", app.config["SQLALCHEMY_DATABASE_URI"])  # 🧪 Confirm!
             # ❗️ Delete all existing scriptures
             num_deleted = Scripture.query.delete()
             print(f"🗑️ Deleted {num_deleted} existing scriptures.")

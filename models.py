@@ -20,7 +20,7 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)  # Unique identifier for each user
     name = db.Column(db.String(100), nullable=False)  # User's name
     email = db.Column(db.String(120), unique=True, nullable=False)  # User's email address
-    password_hash = db.Column(db.String(128), nullable=False)
+    password_hash = db.Column(db.Text, nullable=False)
     
     is_admin = db.Column(db.Boolean, default=False, nullable=True)  # New field, default is False
 

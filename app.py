@@ -2,6 +2,11 @@ import os
 import sys
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
+# ✅ Add this block before anything else
+from dotenv import load_dotenv
+load_dotenv()
+
+
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
@@ -23,6 +28,9 @@ from routes.home import home_bp
 
 def create_app():
     app = Flask(__name__, static_url_path='/static')
+    
+    print("🧪 SQLAlchemy URI in use:", Config.SQLALCHEMY_DATABASE_URI)
+    
     app.config.from_object(Config)
 
     db.init_app(app)  #This tells Flask-SQLAlchemy to bind the app to the db instance
