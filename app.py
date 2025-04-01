@@ -19,6 +19,7 @@ from models import db
 from routes.users import users_bp
 from routes.admin import admin_bp
 from routes.scriptures import scriptures_bp
+from routes.topics import topics_bp
 from routes.blogs import blogs_bp
 from routes.errors import errors_bp
 from routes.home import home_bp
@@ -48,6 +49,7 @@ def create_app():
     app.register_blueprint(scriptures_bp, url_prefix='/scriptures')
     app.register_blueprint(admin_bp, url_prefix='/admin')
     app.register_blueprint(blogs_bp, url_prefix='/blogs')
+    app.register_blueprint(topics_bp, url_prefix='/topics')
     app.register_blueprint(errors_bp)  # ✅ No prefix for error handlers
     app.register_blueprint(home_bp)    # ✅ No prefix for the home route  
       

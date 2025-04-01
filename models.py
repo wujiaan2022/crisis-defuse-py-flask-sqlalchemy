@@ -123,3 +123,19 @@ class Comment(db.Model):
             "user_id": self.user_id,
             "blog_id": self.blog_id
         }
+        
+        
+class Topic(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    slug = db.Column(db.String(100), unique=True, nullable=False)
+    title = db.Column(db.String(200), nullable=False)
+    content = db.Column(db.Text, nullable=False)
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "slug": self.slug,
+            "title": self.title,
+            "content": self.content,
+        }
+
