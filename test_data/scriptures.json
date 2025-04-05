@@ -66,7 +66,7 @@
     "name": "Mantra to Untie Karmic Knots",
     "type": "other",
     "crisis_roles": {
-      "Relationship & Social Conflict": "main",
+      "Relationship & Social Conflicts": "main",
       "Sudden & Unforeseen Misfortune": "main",
       "Parenting Stress & Challenges": "main",
       "Career Struggles & Setbacks": "main",
@@ -88,7 +88,7 @@
     "crisis_roles": {
       "Sudden & Unforeseen Misfortune": "main",
       "Depression & Emotional Struggles": "main",
-      "Relationship & Social Conflict": "help",
+      "Relationship & Social Conflicts": "help",
       "Career Struggles & Setbacks": "help",
       "Parenting Stress & Challenges": "help",
       "Health Issues": "help"
