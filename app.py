@@ -11,6 +11,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
 from flask_admin_panel import init_admin
+from flask_login import LoginManager
 
 from flask_migrate import Migrate
 from flask_jwt_extended import JWTManager
@@ -29,6 +30,7 @@ from routes.home import home_bp
 
 # from scripts.load_scriptures import load_scriptures_from_json  # 👈 Required
 
+login_manager = LoginManager()
 
 def create_app():
     app = Flask(__name__, static_url_path='/static')
@@ -40,6 +42,11 @@ def create_app():
     db.init_app(app)  #This tells Flask-SQLAlchemy to bind the app to the db instance
     
     init_admin(app)
+    
+    login_manager.init_app(app)
+
+    # Optional: redirect unauthorized users
+    login_manager.login_view = "login"  # Set your login route if using one
     
     Migrate(app, db)  # Initialize Flask-Migrate
     
@@ -66,7 +73,13 @@ def create_app():
     return app
 
 # ✅ This is what the CLI needs!
-app = create_app()       
+app = create_app()   
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))    
+
 
 if __name__ == "__main__":
     # app = create_app()

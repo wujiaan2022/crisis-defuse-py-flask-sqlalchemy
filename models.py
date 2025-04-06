@@ -4,6 +4,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy.ext.mutable import MutableDict
 from sqlalchemy.dialects.sqlite import JSON
 
+from flask_login import UserMixin
 
 db = SQLAlchemy()
 
@@ -15,7 +16,7 @@ user_scriptures = db.Table(
 )
 
 
-class User(db.Model):
+class User(UserMixin, db.Model):
     __tablename__ = 'users'  # Specifies the table name in the database
     id = db.Column(db.Integer, primary_key=True)  # Unique identifier for each user
     name = db.Column(db.String(100), nullable=False)  # User's name

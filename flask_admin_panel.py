@@ -3,11 +3,15 @@ from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
 from models import db, User, Scripture, Blog, Comment, Topic
 
-# Optional: Secure admin access (can be improved later)
+from flask_login import current_user
+from flask import abort
+
 class SecureModelView(ModelView):
     def is_accessible(self):
-        # You can integrate with Flask-Login later
-        return True  # Allow everyone for now (for demo)
+        return current_user.is_authenticated and current_user.is_admin
+
+    def inaccessible_callback(self, name, **kwargs):
+        return abort(403, description="Admins only.")
 
 # Create the admin object (don't bind to app yet)
 admin = Admin(name="CrisisDefuse Admin", template_mode="bootstrap4")
