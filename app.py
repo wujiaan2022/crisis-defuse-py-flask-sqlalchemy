@@ -28,6 +28,8 @@ from routes.blogs import blogs_bp
 from routes.errors import errors_bp
 from routes.home import home_bp
 
+from routes.auth import auth_bp
+
 # from scripts.load_scriptures import load_scriptures_from_json  # 👈 Required
 
 login_manager = LoginManager()
@@ -64,6 +66,8 @@ def create_app():
     app.register_blueprint(topics_bp, url_prefix='/topics')
     app.register_blueprint(errors_bp)  # ✅ No prefix for error handlers
     app.register_blueprint(home_bp)    # ✅ No prefix for the home route  
+    
+    app.register_blueprint(auth_bp)
       
     # @app.cli.command("load-scriptures")
     # def load_scriptures():
