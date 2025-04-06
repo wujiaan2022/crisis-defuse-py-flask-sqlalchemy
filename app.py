@@ -18,7 +18,7 @@ from flask_jwt_extended import JWTManager
 from flask_cors import CORS
 
 from config import Config
-from models import db
+from models import db, User
 
 from routes.users import users_bp
 from routes.admin import admin_bp
