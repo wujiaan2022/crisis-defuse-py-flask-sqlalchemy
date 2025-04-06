@@ -9,6 +9,9 @@ load_dotenv()
 
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+
+from flask_admin_panel import init_admin
+
 from flask_migrate import Migrate
 from flask_jwt_extended import JWTManager
 from flask_cors import CORS
@@ -36,6 +39,8 @@ def create_app():
 
     db.init_app(app)  #This tells Flask-SQLAlchemy to bind the app to the db instance
     
+    init_admin(app)
+    
     Migrate(app, db)  # Initialize Flask-Migrate
     
     # ✅ Allow all origins, methods, and headers
@@ -47,7 +52,7 @@ def create_app():
     # Register Blueprints
     app.register_blueprint(users_bp, url_prefix='/users')
     app.register_blueprint(scriptures_bp, url_prefix='/scriptures')
-    app.register_blueprint(admin_bp, url_prefix='/admin')
+    app.register_blueprint(admin_bp, url_prefix='/admin_api')
     app.register_blueprint(blogs_bp, url_prefix='/blogs')
     app.register_blueprint(topics_bp, url_prefix='/topics')
     app.register_blueprint(errors_bp)  # ✅ No prefix for error handlers

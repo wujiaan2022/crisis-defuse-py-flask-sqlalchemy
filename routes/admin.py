@@ -5,7 +5,7 @@ import logging
 from utils.valid_email_helpers import is_valid_email
 import json
 
-admin_bp = Blueprint('admin', __name__)
+admin_bp = Blueprint('admin_api', __name__)
 logging.basicConfig(level=logging.INFO)  # Logging
 
 

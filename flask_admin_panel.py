@@ -1,0 +1,23 @@
+# flask_admin_panel.py
+from flask_admin import Admin
+from flask_admin.contrib.sqla import ModelView
+from models import db, User, Scripture, Blog, Comment, Topic
+
+# Optional: Secure admin access (can be improved later)
+class SecureModelView(ModelView):
+    def is_accessible(self):
+        # You can integrate with Flask-Login later
+        return True  # Allow everyone for now (for demo)
+
+# Create the admin object (don't bind to app yet)
+admin = Admin(name="CrisisDefuse Admin", template_mode="bootstrap4")
+
+def init_admin(app):
+    admin.init_app(app)
+
+    # Add your models here
+    admin.add_view(SecureModelView(User, db.session))
+    admin.add_view(SecureModelView(Scripture, db.session))
+    admin.add_view(SecureModelView(Blog, db.session))
+    admin.add_view(SecureModelView(Comment, db.session))
+    admin.add_view(SecureModelView(Topic, db.session))
