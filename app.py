@@ -48,7 +48,7 @@ def create_app():
     login_manager.init_app(app)
 
     # Optional: redirect unauthorized users
-    login_manager.login_view = "login"  # Set your login route if using one
+    login_manager.login_view = "auth.login"  # Set your login route if using one
     
     Migrate(app, db)  # Initialize Flask-Migrate
     

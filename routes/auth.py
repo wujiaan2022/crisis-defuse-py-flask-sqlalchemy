@@ -7,6 +7,7 @@ auth_bp = Blueprint("auth", __name__)
 
 @auth_bp.route("/login", methods=["GET", "POST"])
 def login():
+    print("🧪 Login route triggered!")  # Check if this shows in your logs
     if request.method == "POST":
         email = request.form["email"]
         password = request.form["password"]
