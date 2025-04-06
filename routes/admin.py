@@ -64,14 +64,20 @@ def create_users():
         return jsonify(new_user.to_dict()), 201
 
 
-@admin_bp.route('/users', methods=['GET'])
-@jwt_required()
-def get_users():
-    current_user_id = get_jwt_identity()
-    current_user = User.query.get(current_user_id)
+# @admin_bp.route('/users', methods=['GET'])
+# @jwt_required()
+# def get_users():
+#     current_user_id = get_jwt_identity()
+#     current_user = User.query.get(current_user_id)
 
-    if not current_user or not current_user.is_admin:
-        abort(403, description="Admins only.")
+#     if not current_user or not current_user.is_admin:
+#         abort(403, description="Admins only.")
+
+#     users = User.query.all()
+#     return jsonify([user.to_dict() for user in users]), 200
+
+@admin_bp.route('/users', methods=['GET'])
+def get_users(): 
 
     users = User.query.all()
     return jsonify([user.to_dict() for user in users]), 200

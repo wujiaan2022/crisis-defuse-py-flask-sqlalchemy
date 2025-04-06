@@ -105,3 +105,4 @@ def delete_user(id):
     db.session.commit()
     return jsonify(message=f"User {id} deleted successfully"), 200
 
+
